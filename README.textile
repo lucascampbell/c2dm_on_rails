@@ -51,7 +51,7 @@ Now, to create the tables you need for C2dm on Rails, run the following task:
 </code></pre>
 
 C2dm on Rails uses the Configatron gem, "http://github.com/markbates/configatron/tree/master":http://github.com/markbates/configatron/tree/master, 
-to configure itself. C2dm on Rails uses also the gdata gem for connecting a Google account. The following is an example of an initializer script to
+to configure itself. C2dm on Rails uses also the gdata_19 gem for connecting a Google account. The following is an example of an initializer script to
 be run to configure the gem (you could put it in config/initializers/c2dm_on_rails.rb):
 <pre><code>
   configatron.c2dm.api_url = 'https://android.apis.google.com/c2dm/send'
