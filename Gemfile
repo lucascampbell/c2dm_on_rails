@@ -1,4 +1,4 @@
 source :rubygems
 gem 'jeweler'
 gem 'configatron'
-gem 'gdata'
+gem 'gdata', :git => 'git://github.com/tokumine/GData.git'
