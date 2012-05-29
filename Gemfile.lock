@@ -1,0 +1,25 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    configatron (2.9.1)
+      yamler (>= 0.1.0)
+    gdata_19 (1.1.5)
+    git (1.2.5)
+    jeweler (1.8.3)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+      rdoc
+    json (1.7.3)
+    rake (0.9.2.2)
+    rdoc (3.12)
+      json (~> 1.4)
+    yamler (0.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  configatron
+  gdata_19
+  jeweler
