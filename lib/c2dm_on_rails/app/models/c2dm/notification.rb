@@ -27,7 +27,7 @@ class C2dm::Notification < C2dm::Base
     
     def send_daily_notification
       group = APN::Group.find_by_name("ANDROID")
-      notification = C2dm::Notification(:first, :conditions => {:sent_at => nil})
+      notification = C2dm::Notification.find(:first, :conditions => {:sent_at => nil})
       unless notification.blank?
         C2dm::Connection.open do |token|
           group.devices.each do |device|
