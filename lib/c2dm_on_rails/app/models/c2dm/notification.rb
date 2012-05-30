@@ -21,9 +21,6 @@ class C2dm::Notification < C2dm::Base
   include ::ActionView::Helpers::TextHelper
   extend ::ActionView::Helpers::TextHelper
   serialize :data
-  
-  
-  
   belongs_to :device, :class_name => 'C2dm::Device'
   
   class << self
@@ -46,12 +43,12 @@ class C2dm::Notification < C2dm::Base
                 logger.warn(ex.message)
               when "Error=InvalidRegistration"
                 ex = C2dm::Errors::InvalidRegistration.new(response[:message])
-                logger.warn("#{ex.message}, destroying c2dm_device with id #{noty.device.id}")
-                noty.device.destroy
+                logger.warn("#{ex.message}, destroying c2dm_device with id #{device.id}")
+                device.destroy
               when "Error=NotRegistered"
                 ex = C2dm::Errors::NotRegistered.new(response[:message])
-                logger.warn("#{ex.message}, destroying c2dm_device with id #{noty.device.id}")
-                noty.device.destroy
+                logger.warn("#{ex.message}, destroying c2dm_device with id #{device.id}")
+                device.destroy
               when "Error=MessageTooBig"
                 ex = C2dm::Errors::MessageTooBig.new(response[:message])
                 logger.warn(ex.message)
@@ -59,8 +56,8 @@ class C2dm::Notification < C2dm::Base
                 ex = C2dm::Errors::MissingCollapseKey.new(response[:message])
                 logger.warn(ex.message)
               else
-                noty.sent_at = Time.now
-                noty.save!
+                notification.sent_at = Time.now
+                notification.save!
               end
             elsif response[:code] == 503
               raise C2dm::Errors:ServiceUnavailable.new(response[:message])
