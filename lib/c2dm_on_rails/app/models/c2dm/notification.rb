@@ -30,7 +30,7 @@ class C2dm::Notification < C2dm::Base
       notification = C2dm::Notification.find(:first, :conditions => {:sent_at => nil})
       unless notification.blank?
         C2dm::Connection.open do |token|
-          group.devices.each do |device|
+          group.c2_devices.each do |device|
             puts "sending notification #{notification.id} to device #{device.registration_id}"
             response = C2dm::Connection.send_daily_notification(notification, token, device)
             puts "response: #{response[:code]}; #{response.inspect}"
