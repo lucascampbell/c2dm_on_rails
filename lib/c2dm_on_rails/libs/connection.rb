@@ -31,7 +31,7 @@ module C2dm
                     "Authorization" => "GoogleLogin auth=#{token}" }
 
         message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
-        data = "registration_id=#{device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
+        data = "registration_id=#{device.registration_id.strip}&collapse_key=#{noty.collapse_key}#{message_data}"
 
         data = data + "&delay_while_idle" if noty.delay_while_idle
 
@@ -49,9 +49,9 @@ module C2dm
       def open
         puts "config user:#{configatron.c2dm.username}: config password:#{configatron.c2dm.password}: config appname:#{configatron.c2dm.app_name}"
         client_login_handler = GData::Auth::ClientLogin.new('ac2dm', :account_type => 'HOSTED_OR_GOOGLE')
-        token = client_login_handler.get_token(configatron.c2dm.username,
-                                               configatron.c2dm.password,
-                                               configatron.c2dm.app_name)
+        token = client_login_handler.get_token(configatron.c2dm.username.strip,
+                                               configatron.c2dm.password.strip,
+                                               configatron.c2dm.app_name.strip)
 
         yield token
       end
