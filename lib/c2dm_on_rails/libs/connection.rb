@@ -47,6 +47,7 @@ module C2dm
       end
 
       def open
+        puts "config user:#{configatron.c2dm.username}: config password:#{configatron.c2dm.password}: config appname:#{configatron.c2dm.app_name}"
         client_login_handler = GData::Auth::ClientLogin.new('ac2dm', :account_type => 'HOSTED_OR_GOOGLE')
         token = client_login_handler.get_token(configatron.c2dm.username,
                                                configatron.c2dm.password,
