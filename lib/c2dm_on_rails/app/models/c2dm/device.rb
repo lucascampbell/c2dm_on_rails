@@ -26,7 +26,7 @@ class C2dm::Device < C2dm::Base
   
   private
   def set_last_registered_at
-    self.last_registered_at = Time.now if self.last_registered_at.nil?
+    self.last_registered_at = Time.now
   end
   
 end
