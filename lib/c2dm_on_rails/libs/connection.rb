@@ -30,7 +30,7 @@ module C2dm
         begin
           headers = { "Content-Type" => "application/x-www-form-urlencoded", 
                       "Authorization" => "GoogleLogin auth=#{token}" }
-
+          puts "noty data is -- #{noty.data}"
           message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
           data = "registration_id=#{device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
            
