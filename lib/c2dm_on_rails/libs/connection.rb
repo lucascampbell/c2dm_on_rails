@@ -27,23 +27,27 @@ module C2dm
       end
       
       def send_daily_notification(noty, token, device)
-        headers = { "Content-Type" => "application/x-www-form-urlencoded", 
-                    "Authorization" => "GoogleLogin auth=#{token}" }
+        begin
+          headers = { "Content-Type" => "application/x-www-form-urlencoded", 
+                      "Authorization" => "GoogleLogin auth=#{token}" }
 
-        message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
-        data = "registration_id=#{device.registration_id.strip}&collapse_key=#{noty.collapse_key}#{message_data}"
-
-        data = data + "&delay_while_idle" if noty.delay_while_idle
-
-        url_string = configatron.c2dm.api_url
-        url=URI.parse url_string
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
+          data = "registration_id=#{device.registration_id.strip}&collapse_key=#{noty.collapse_key}#{message_data}"
+           
+          data = data + "&delay_while_idle" if noty.delay_while_idle
+          puts "data is --- #{data}"
+          url_string = configatron.c2dm.api_url
+          puts "url string is #{url_string}"
+          url=URI.parse url_string
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
    
-        resp, dat = http.post(url.path, data, headers)
-
-        return {:code => resp.code.to_i, :message => dat} 
+          resp, dat = http.post(url.path, data, headers)
+       rescue Exception=>e
+         puts "error---: #{e.message}"
+       end
+       return {:code => resp.code.to_i, :message => dat} 
       end
 
       def open

@@ -32,7 +32,6 @@ class C2dm::Notification < C2dm::Base
         C2dm::Connection.open do |token|
           group.c2_devices.each do |device|
             puts "sending notification #{notification.id} to device #{device.registration_id}"
-            puts "token is #{token}"
             response = C2dm::Connection.send_daily_notification(notification, token, device)
             puts "response: #{response[:code]}; #{response.inspect}"
             if response[:code] == 200
