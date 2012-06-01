@@ -44,10 +44,10 @@ module C2dm
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
    
           resp, dat = http.post(url.path, data, headers)
+          return {:code => resp.code.to_i, :message => dat} 
        rescue Exception=>e
-         puts "error---: #{e.message}"
-       end
-       return {:code => resp.code.to_i, :message => dat} 
+          puts "error---: #{e.message} \n #{e.backtrace}"
+        end
       end
 
       def open
