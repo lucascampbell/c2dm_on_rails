@@ -33,7 +33,7 @@ module C2dm
           puts "noty data is -- #{noty.data}"
           message_data = noty.data.map{|k, v| "&data.#{k}=#{URI.escape(v)}"}.reduce{|k, v| k + v}
           data = "registration_id=#{device.registration_id}&collapse_key=#{noty.collapse_key}#{message_data}"
-           
+          
           data = data + "&delay_while_idle" if noty.delay_while_idle
           puts "data is --- #{data}"
           url_string = configatron.c2dm.api_url
